@@ -22,6 +22,9 @@
 		01FF37472C3E9E2C004F5F3A /* MainWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */; };
 		01FF37492C3E9E9F004F5F3A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 01FF37482C3E9E9F004F5F3A /* .gitignore */; };
 		01FF374B2C3EA004004F5F3A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF374A2C3EA004004F5F3A /* APIKey.swift */; };
+		01FF374E2C3EA1CF004F5F3A /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF374D2C3EA1CF004F5F3A /* WeatherAPI.swift */; };
+		01FF37512C3EA33E004F5F3A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37502C3EA33E004F5F3A /* Observable.swift */; };
+		01FF37542C3ECD7C004F5F3A /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37532C3ECD7C004F5F3A /* CurrentWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherViewModel.swift; sourceTree = "<group>"; };
 		01FF37482C3E9E9F004F5F3A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		01FF374A2C3EA004004F5F3A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		01FF374D2C3EA1CF004F5F3A /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
+		01FF37502C3EA33E004F5F3A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		01FF37532C3ECD7C004F5F3A /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +101,10 @@
 		01FF37312C3E9165004F5F3A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				01FF37522C3EA561004F5F3A /* Model */,
+				01FF374F2C3EA322004F5F3A /* Util */,
 				01FF37322C3E91CA004F5F3A /* Application */,
+				01FF374C2C3EA1A9004F5F3A /* Network */,
 				01FF37332C3E91F2004F5F3A /* Presentation */,
 			);
 			path = Sources;
@@ -138,6 +147,30 @@
 				01FF373C2C3E9430004F5F3A /* BaseCollectionViewCell.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		01FF374C2C3EA1A9004F5F3A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				01FF374D2C3EA1CF004F5F3A /* WeatherAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		01FF374F2C3EA322004F5F3A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				01FF37502C3EA33E004F5F3A /* Observable.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		01FF37522C3EA561004F5F3A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01FF37532C3ECD7C004F5F3A /* CurrentWeather.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,9 +252,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01FF374E2C3EA1CF004F5F3A /* WeatherAPI.swift in Sources */,
 				01FF373F2C3E979B004F5F3A /* MainWeatherView.swift in Sources */,
+				01FF37542C3ECD7C004F5F3A /* CurrentWeather.swift in Sources */,
 				01FF37212C3E8FFE004F5F3A /* MainWeatherViewController.swift in Sources */,
 				01FF373D2C3E9430004F5F3A /* BaseCollectionViewCell.swift in Sources */,
+				01FF37512C3EA33E004F5F3A /* Observable.swift in Sources */,
 				01FF37372C3E93A5004F5F3A /* BaseViewController.swift in Sources */,
 				01FF374B2C3EA004004F5F3A /* APIKey.swift in Sources */,
 				01FF37392C3E93DF004F5F3A /* BaseView.swift in Sources */,
