@@ -101,9 +101,9 @@
 		01FF37312C3E9165004F5F3A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				01FF37322C3E91CA004F5F3A /* Application */,
 				01FF37522C3EA561004F5F3A /* Model */,
 				01FF374F2C3EA322004F5F3A /* Util */,
-				01FF37322C3E91CA004F5F3A /* Application */,
 				01FF374C2C3EA1A9004F5F3A /* Network */,
 				01FF37332C3E91F2004F5F3A /* Presentation */,
 			);
