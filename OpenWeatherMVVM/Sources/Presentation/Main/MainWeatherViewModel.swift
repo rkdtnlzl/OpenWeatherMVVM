@@ -20,18 +20,19 @@ class MainWeatherViewModel {
     }
     
     func fetchWeather() {
-        WeatherAPI.shared.fetchWeatherData(latitude: 37.74913611, longitude: 128.8784972) { [weak self] result in
+        WeatherAPI.shared.fetchWeatherData(latitude: 37.74913611, longitude: 128.8784972) {  result in
             switch result {
             case .success(let weatherData):
-                DispatchQueue.main.async {
-                    let formattedTemp = String(format: "%.1f°C", weatherData.main.temp)
-                    self?.outputWeatherUpdate.value = (cityName: weatherData.name, currentTemp: formattedTemp)
-                }
+                let celsiusTemp = self.convertCelsius(kelvin: weatherData.main.temp)
+                let formattedTemp = String(format: "%.1f°C", celsiusTemp)
+                self.outputWeatherUpdate.value = (cityName: weatherData.name, currentTemp: formattedTemp)
             case .failure:
-                DispatchQueue.main.async {
-                    self?.outputWeatherUpdate.value = ("Error", "N/A")
-                }
+                self.outputWeatherUpdate.value = ("Error", "N/A")
             }
         }
+    }
+    
+    private func convertCelsius(kelvin: Double) -> Double {
+        return kelvin - 273.15
     }
 }
