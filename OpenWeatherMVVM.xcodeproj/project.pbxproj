@@ -21,6 +21,7 @@
 		01FF37452C3E987E004F5F3A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 01FF37442C3E987E004F5F3A /* SnapKit */; };
 		01FF37472C3E9E2C004F5F3A /* MainWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */; };
 		01FF37492C3E9E9F004F5F3A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 01FF37482C3E9E9F004F5F3A /* .gitignore */; };
+		01FF374B2C3EA004004F5F3A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF374A2C3EA004004F5F3A /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		01FF373E2C3E979B004F5F3A /* MainWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherView.swift; sourceTree = "<group>"; };
 		01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherViewModel.swift; sourceTree = "<group>"; };
 		01FF37482C3E9E9F004F5F3A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		01FF374A2C3EA004004F5F3A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				01FF372A2C3E8FFF004F5F3A /* Info.plist */,
 				01FF37312C3E9165004F5F3A /* Sources */,
 				01FF37302C3E9159004F5F3A /* Resources */,
+				01FF374A2C3EA004004F5F3A /* APIKey.swift */,
 			);
 			path = OpenWeatherMVVM;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				01FF37212C3E8FFE004F5F3A /* MainWeatherViewController.swift in Sources */,
 				01FF373D2C3E9430004F5F3A /* BaseCollectionViewCell.swift in Sources */,
 				01FF37372C3E93A5004F5F3A /* BaseViewController.swift in Sources */,
+				01FF374B2C3EA004004F5F3A /* APIKey.swift in Sources */,
 				01FF37392C3E93DF004F5F3A /* BaseView.swift in Sources */,
 				01FF37472C3E9E2C004F5F3A /* MainWeatherViewModel.swift in Sources */,
 				01FF371D2C3E8FFE004F5F3A /* AppDelegate.swift in Sources */,
