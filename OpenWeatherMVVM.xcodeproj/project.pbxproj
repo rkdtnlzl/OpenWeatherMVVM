@@ -25,6 +25,7 @@
 		01FF374E2C3EA1CF004F5F3A /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF374D2C3EA1CF004F5F3A /* WeatherAPI.swift */; };
 		01FF37512C3EA33E004F5F3A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37502C3EA33E004F5F3A /* Observable.swift */; };
 		01FF37542C3ECD7C004F5F3A /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37532C3ECD7C004F5F3A /* CurrentWeather.swift */; };
+		01FF37632C402819004F5F3A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37622C402819004F5F3A /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		01FF374D2C3EA1CF004F5F3A /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		01FF37502C3EA33E004F5F3A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		01FF37532C3ECD7C004F5F3A /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
+		01FF37622C402819004F5F3A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				01FF37502C3EA33E004F5F3A /* Observable.swift */,
+				01FF37622C402819004F5F3A /* LocationManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			files = (
 				01FF374E2C3EA1CF004F5F3A /* WeatherAPI.swift in Sources */,
 				01FF373F2C3E979B004F5F3A /* MainWeatherView.swift in Sources */,
+				01FF37632C402819004F5F3A /* LocationManager.swift in Sources */,
 				01FF37542C3ECD7C004F5F3A /* CurrentWeather.swift in Sources */,
 				01FF37212C3E8FFE004F5F3A /* MainWeatherViewController.swift in Sources */,
 				01FF373D2C3E9430004F5F3A /* BaseCollectionViewCell.swift in Sources */,

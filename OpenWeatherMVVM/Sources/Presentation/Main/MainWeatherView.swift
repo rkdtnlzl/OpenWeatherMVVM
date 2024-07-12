@@ -12,22 +12,29 @@ class MainWeatherView: BaseView {
     
     let cityName = UILabel()
     let currentTemp = UILabel()
+    let descriptionName = UILabel()
     
     override func configureHierarchy() {
         addSubview(cityName)
         addSubview(currentTemp)
+        addSubview(descriptionName)
     }
     
     override func configureView() {
-        cityName.text = "test"
+        cityName.text = "loading..."
         cityName.textColor = .white
         cityName.font = .systemFont(ofSize: 35, weight: .regular)
         cityName.textAlignment = .center
         
-        currentTemp.text = "5.9C"
+        currentTemp.text = "loading.."
         currentTemp.textColor = .white
         currentTemp.font = .systemFont(ofSize: 45, weight: .thin)
         currentTemp.textAlignment = .center
+        
+        descriptionName.text = "loading.."
+        descriptionName.textColor = .white
+        descriptionName.font = .systemFont(ofSize: 25)
+        descriptionName.textAlignment = .center
     }
     
     override func configureLayout() {
@@ -37,6 +44,10 @@ class MainWeatherView: BaseView {
         }
         currentTemp.snp.makeConstraints { make in
             make.top.equalTo(cityName.snp.bottom).offset(5)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+        }
+        descriptionName.snp.makeConstraints { make in
+            make.top.equalTo(currentTemp.snp.bottom).offset(5)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
     }
