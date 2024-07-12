@@ -9,30 +9,17 @@ import Foundation
 
 class MainWeatherViewModel {
     
-    var inputViewDidLoadTrigger: Observable<Void?> = Observable(nil)
+    var inputLocationTrigger: Observable<(latitude: Double, longitude: Double)> = Observable((0.0, 0.0))
     
     var outputWeatherUpdate: Observable<(cityName: String, currentTemp: String, descriptionName: String)> = Observable(("", "", ""))
     
-    private let locationManager = LocationManager()
-    
     init() {
-        inputViewDidLoadTrigger.bind { _ in
-            self.requestLocation()
+        inputLocationTrigger.bind { location in
+            self.fetchWeather(latitude: location.latitude, longitude: location.longitude)
         }
     }
     
-    private func requestLocation() {
-        locationManager.fetchLocation { [weak self] coordinate, error in
-            if let coordinate = coordinate {
-                self?.fetchWeather(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            } else if let error = error {
-                print("Error fetching location: \(error)")
-                self?.outputWeatherUpdate.value = ("Location Error", "N/A", "N/A")
-            }
-        }
-    }
-    
-    func fetchWeather(latitude: Double, longitude: Double) {
+    private func fetchWeather(latitude: Double, longitude: Double) {
         WeatherAPI.shared.fetchWeatherData(latitude: latitude, longitude: longitude) { result in
             switch result {
             case .success(let weatherData):

@@ -6,17 +6,25 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainWeatherViewController: BaseViewController {
     
     let scrollView = UIScrollView()
     let mainWatherView = MainWeatherView()
     let viewModel = MainWeatherViewModel()
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureLocationManager()
         bindData()
-        viewModel.inputViewDidLoadTrigger.value = ()
+    }
+    
+    func configureLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
     }
     
     override func configureHierarchy() {
@@ -50,3 +58,21 @@ class MainWeatherViewController: BaseViewController {
     }
 }
 
+extension MainWeatherViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            viewModel.inputLocationTrigger.value = (latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location update failed with error: \(error)")
+    }
+}
