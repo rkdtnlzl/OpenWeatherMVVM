@@ -52,8 +52,7 @@ class MainWeatherViewController: BaseViewController {
             self.mainWatherView.cityName.text = weatherUpdate.cityName
             self.mainWatherView.currentTemp.text = weatherUpdate.currentTemp
             self.mainWatherView.descriptionName.text = weatherUpdate.descriptionName
-            
-            print("==========\(weatherUpdate.descriptionName)")
+            self.mainWatherView.minMaxTemp.text = weatherUpdate.minMaxTemp
         }
     }
 }
