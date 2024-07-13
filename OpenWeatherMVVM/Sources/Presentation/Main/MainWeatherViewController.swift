@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import Kingfisher
 
 class MainWeatherViewController: BaseViewController {
     
@@ -70,6 +71,19 @@ class MainWeatherViewController: BaseViewController {
         }
     }
     
+    func formatTime(_ timestamp: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH시"
+        return dateFormatter.string(from: date)
+    }
+    
+    func getIconURL(iconCode: String) -> String {
+        return "\(APIURL.iconURL)\(iconCode)@2x.png"
+    }
+    
+    func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        WeatherAPI.shared.loadImage(from: urlString, completion: completion)
     }
     
     func bindData() {
@@ -78,6 +92,9 @@ class MainWeatherViewController: BaseViewController {
             self.mainWatherView.currentTemp.text = weatherUpdate.currentTemp
             self.mainWatherView.descriptionName.text = weatherUpdate.descriptionName
             self.mainWatherView.minMaxTemp.text = weatherUpdate.minMaxTemp
+        }
+        viewModel.outputThreeHoursWeather.bind { _ in
+            self.threeHoursCollectionView.reloadData()
         }
     }
 }
@@ -89,6 +106,17 @@ extension MainWeatherViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHoursCollectionViewCell.id, for: indexPath) as! ThreeHoursCollectionViewCell
+        let forecast = viewModel.outputThreeHoursWeather.value[indexPath.item]
+        let time = formatTime(TimeInterval(forecast.dt))
+        let temperature = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.temp ?? 0.0))
+        let icon = forecast.weather.first?.icon ?? ""
+        let iconURL = getIconURL(iconCode: icon)
+        
+        cell.timeLabel.text = time
+        cell.temperatureLabel.text = temperature
+        cell.iconImageView.kf.setImage(with: URL(string: iconURL))
+        
         return cell
     }
     
