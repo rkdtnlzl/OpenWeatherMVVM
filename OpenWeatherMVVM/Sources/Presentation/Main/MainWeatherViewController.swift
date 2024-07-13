@@ -13,11 +13,12 @@ class MainWeatherViewController: BaseViewController {
     
     let scrollView = UIScrollView()
     let mainWatherView = MainWeatherView()
+    
     lazy var threeHoursCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
-        layout.itemSize = CGSize(width: 80, height: 120)
+        layout.itemSize = CGSize(width: 80, height: 140)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -30,13 +31,27 @@ class MainWeatherViewController: BaseViewController {
         return collectionView
     }()
     
+    let fiveDaysTableView = UITableView()
     let viewModel = MainWeatherViewModel()
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLocationManager()
+        configureTableView()
         bindData()
+    }
+    
+    func configureTableView() {
+        fiveDaysTableView.delegate = self
+        fiveDaysTableView.dataSource = self
+        fiveDaysTableView.register(FiveDaysTableViewCell.self, forCellReuseIdentifier: FiveDaysTableViewCell.id)
+        fiveDaysTableView.rowHeight = 50
+        fiveDaysTableView.backgroundColor = .clear
+        fiveDaysTableView.layer.cornerRadius = 10
+        fiveDaysTableView.layer.borderColor = UIColor.lightGray.cgColor
+        fiveDaysTableView.layer.borderWidth = 0.5
+        fiveDaysTableView.isScrollEnabled = false
     }
     
     func configureLocationManager() {
@@ -49,6 +64,7 @@ class MainWeatherViewController: BaseViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(mainWatherView)
         scrollView.addSubview(threeHoursCollectionView)
+        scrollView.addSubview(fiveDaysTableView)
     }
     
     override func configureView() {
@@ -67,7 +83,12 @@ class MainWeatherViewController: BaseViewController {
         threeHoursCollectionView.snp.makeConstraints { make in
             make.top.equalTo(mainWatherView.snp.bottom).offset(20)
             make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(120)
+            make.height.equalTo(140)
+        }
+        fiveDaysTableView.snp.makeConstraints { make in
+            make.top.equalTo(threeHoursCollectionView.snp.bottom).offset(20)
+            make.width.equalTo(scrollView.snp.width)
+            make.height.equalTo(250)
         }
     }
     
@@ -121,8 +142,21 @@ extension MainWeatherViewController: UICollectionViewDataSource, UICollectionVie
     }
     
 }
-extension MainWeatherViewController: CLLocationManagerDelegate {
+
+extension MainWeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        5
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FiveDaysTableViewCell.id, for: indexPath) as! FiveDaysTableViewCell
+        
+        cell.backgroundColor = .brown
+        return cell
+    }
+}
+
+extension MainWeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startUpdatingLocation()
