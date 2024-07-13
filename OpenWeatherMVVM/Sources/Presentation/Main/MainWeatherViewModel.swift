@@ -13,6 +13,7 @@ class MainWeatherViewModel {
     
     var outputWeatherUpdate: Observable<(cityName: String, currentTemp: String, descriptionName: String, minMaxTemp: String)> = Observable(("", "", "", ""))
     var outputThreeHoursWeather: Observable<[Forecast]> = Observable([])
+    var outputFiveDaysWeather: Observable<[Forecast]> = Observable([])
     
     init() {
         inputLocationTrigger.bind { location in
@@ -51,11 +52,32 @@ class MainWeatherViewModel {
         WeatherAPI.shared.fetchWeatherForecast(cityId: cityId) { result in
             switch result {
             case .success(let forecastData):
-                self.outputThreeHoursWeather.value = Array(forecastData.list.prefix(8))
+                let forecasts = forecastData.list
+                self.outputThreeHoursWeather.value = Array(forecasts.prefix(8))
+                self.fiveDaysForecasts(forecasts: forecasts)
             case .failure:
                 self.outputThreeHoursWeather.value = []
+                self.outputFiveDaysWeather.value = []
             }
         }
+    }
+    
+    private func fiveDaysForecasts(forecasts: [Forecast]) {
+        var dailyForecasts: [Forecast] = []
+        let groupedForecasts = Dictionary(grouping: forecasts) { forecast in
+            let date = Date(timeIntervalSince1970: TimeInterval(forecast.dt))
+            let calendar = Calendar.current
+            return calendar.startOfDay(for: date)
+        }
+        
+        for (_, dailyData) in groupedForecasts {
+            if let dailyForecast = dailyData.first {
+                dailyForecasts.append(dailyForecast)
+            }
+        }
+        
+        dailyForecasts.sort { $0.dt < $1.dt }
+        self.outputFiveDaysWeather.value = dailyForecasts
     }
     
     func convertCelsius(kelvin: Double) -> Double {
