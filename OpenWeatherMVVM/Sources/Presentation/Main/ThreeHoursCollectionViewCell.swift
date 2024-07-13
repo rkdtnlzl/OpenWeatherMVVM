@@ -41,7 +41,7 @@ class ThreeHoursCollectionViewCell: BaseCollectionViewCell {
         iconImageView.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(50)
         }
         
         temperatureLabel.snp.makeConstraints { make in
