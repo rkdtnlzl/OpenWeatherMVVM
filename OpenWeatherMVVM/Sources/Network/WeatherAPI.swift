@@ -31,4 +31,22 @@ class WeatherAPI {
             }
         }
     }
+    
+    func fetchWeatherForecast(cityId: Int, completion: @escaping (Result<WeatherForecastData, Error>) -> Void) {
+        let parameters: [String: Any] = [
+            "id": cityId,
+            "appid": APIKey.weatherKey
+        ]
+        AF.request(APIURL.forcastURL, method: .get, parameters: parameters).responseDecodable(of: WeatherForecastData.self) { response in
+            switch response.result {
+            case .success(let forecastData):
+                print(forecastData)
+                completion(.success(forecastData))
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }
