@@ -12,6 +12,7 @@ class MainWeatherViewModel {
     var inputLocationTrigger: Observable<(latitude: Double, longitude: Double)> = Observable((0.0, 0.0))
     
     var outputWeatherUpdate: Observable<(cityName: String, currentTemp: String, descriptionName: String, minMaxTemp: String)> = Observable(("", "", "", ""))
+    var outputThreeHoursWeather: Observable<[Forecast]> = Observable([])
     
     init() {
         inputLocationTrigger.bind { location in
@@ -36,15 +37,28 @@ class MainWeatherViewModel {
                     cityName: weatherData.name,
                     currentTemp: formattedTemp,
                     descriptionName: weatherData.weather.first?.description ?? "",
-                    minMaxTemp: "최고 : \(formattedMinTemp) | 최저 : \(formattedMaxTemp)"
+                    minMaxTemp: "최고 : \(formattedMaxTemp) | 최저 : \(formattedMinTemp)"
                 )
+                self.fetchForecast(cityId: weatherData.id)
+                
             case .failure:
                 self.outputWeatherUpdate.value = ("Error", "N/A", "N/A", "N/A | N/A")
             }
         }
     }
     
-    private func convertCelsius(kelvin: Double) -> Double {
+    private func fetchForecast(cityId: Int) {
+        WeatherAPI.shared.fetchWeatherForecast(cityId: cityId) { result in
+            switch result {
+            case .success(let forecastData):
+                self.outputThreeHoursWeather.value = Array(forecastData.list.prefix(8))
+            case .failure:
+                self.outputThreeHoursWeather.value = []
+            }
+        }
+    }
+    
+    func convertCelsius(kelvin: Double) -> Double {
         return kelvin - 273.15
     }
 }
