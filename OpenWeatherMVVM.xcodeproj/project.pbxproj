@@ -29,6 +29,7 @@
 		01FF37652C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */; };
 		01FF37672C4264A3004F5F3A /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37662C4264A3004F5F3A /* Forecast.swift */; };
 		01FF376A2C427257004F5F3A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 01FF37692C427257004F5F3A /* Kingfisher */; };
+		01FF376C2C4278A5004F5F3A /* FiveDaysTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		01FF37622C402819004F5F3A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeHoursCollectionViewCell.swift; sourceTree = "<group>"; };
 		01FF37662C4264A3004F5F3A /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				01FF37202C3E8FFE004F5F3A /* MainWeatherViewController.swift */,
 				01FF373E2C3E979B004F5F3A /* MainWeatherView.swift */,
 				01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */,
+				01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */,
 				01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */,
 			);
 			path = Main;
@@ -271,6 +274,7 @@
 				01FF37652C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift in Sources */,
 				01FF37632C402819004F5F3A /* LocationManager.swift in Sources */,
 				01FF37542C3ECD7C004F5F3A /* CurrentWeather.swift in Sources */,
+				01FF376C2C4278A5004F5F3A /* FiveDaysTableViewCell.swift in Sources */,
 				01FF37212C3E8FFE004F5F3A /* MainWeatherViewController.swift in Sources */,
 				01FF373D2C3E9430004F5F3A /* BaseCollectionViewCell.swift in Sources */,
 				01FF37512C3EA33E004F5F3A /* Observable.swift in Sources */,
