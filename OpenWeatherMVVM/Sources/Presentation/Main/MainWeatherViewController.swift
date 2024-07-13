@@ -12,7 +12,7 @@ import Kingfisher
 class MainWeatherViewController: BaseViewController {
     
     let scrollView = UIScrollView()
-    let mainWatherView = MainWeatherView()
+    let mainWeatherView = MainWeatherView()
     
     lazy var threeHoursCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -62,7 +62,7 @@ class MainWeatherViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(scrollView)
-        scrollView.addSubview(mainWatherView)
+        scrollView.addSubview(mainWeatherView)
         scrollView.addSubview(threeHoursCollectionView)
         scrollView.addSubview(fiveDaysTableView)
     }
@@ -75,13 +75,13 @@ class MainWeatherViewController: BaseViewController {
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        mainWatherView.snp.makeConstraints { make in
+        mainWeatherView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.snp.top)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(180)
         }
         threeHoursCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(mainWatherView.snp.bottom).offset(20)
+            make.top.equalTo(mainWeatherView.snp.bottom).offset(20)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(140)
         }
@@ -109,10 +109,10 @@ class MainWeatherViewController: BaseViewController {
     
     func bindData() {
         viewModel.outputWeatherUpdate.bind { weatherUpdate in
-            self.mainWatherView.cityName.text = weatherUpdate.cityName
-            self.mainWatherView.currentTemp.text = weatherUpdate.currentTemp
-            self.mainWatherView.descriptionName.text = weatherUpdate.descriptionName
-            self.mainWatherView.minMaxTemp.text = weatherUpdate.minMaxTemp
+            self.mainWeatherView.cityName.text = weatherUpdate.cityName
+            self.mainWeatherView.currentTemp.text = weatherUpdate.currentTemp
+            self.mainWeatherView.descriptionName.text = weatherUpdate.descriptionName
+            self.mainWeatherView.minMaxTemp.text = weatherUpdate.minMaxTemp
         }
         viewModel.outputThreeHoursWeather.bind { _ in
             self.threeHoursCollectionView.reloadData()
