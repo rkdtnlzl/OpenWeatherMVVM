@@ -53,5 +53,9 @@ class FiveDaysTableViewCell: BaseTableViewCell {
             make.center.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(15)
         }
+        
+        weatherIcon.snp.makeConstraints { make in
+            make.width.height.equalTo(50)
+        }
     }
 }
