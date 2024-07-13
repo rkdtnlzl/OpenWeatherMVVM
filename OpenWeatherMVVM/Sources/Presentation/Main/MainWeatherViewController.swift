@@ -46,7 +46,7 @@ class MainWeatherViewController: BaseViewController {
         fiveDaysTableView.delegate = self
         fiveDaysTableView.dataSource = self
         fiveDaysTableView.register(FiveDaysTableViewCell.self, forCellReuseIdentifier: FiveDaysTableViewCell.id)
-        fiveDaysTableView.rowHeight = 50
+        fiveDaysTableView.rowHeight = 70
         fiveDaysTableView.backgroundColor = .clear
         fiveDaysTableView.layer.cornerRadius = 10
         fiveDaysTableView.layer.borderColor = UIColor.lightGray.cgColor
@@ -81,14 +81,30 @@ class MainWeatherViewController: BaseViewController {
             make.height.equalTo(180)
         }
         threeHoursCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(mainWeatherView.snp.bottom).offset(20)
+            make.top.equalTo(mainWeatherView.snp.bottom).offset(40)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(140)
         }
         fiveDaysTableView.snp.makeConstraints { make in
-            make.top.equalTo(threeHoursCollectionView.snp.bottom).offset(20)
+            make.top.equalTo(threeHoursCollectionView.snp.bottom).offset(40)
             make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(250)
+            make.height.equalTo(350)
+            make.bottom.equalTo(scrollView.snp.bottom)
+        }
+    }
+    
+    func formatDate(_ timestamp: Int, index: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        if index == 0 {
+            return "오늘"
+        } else {
+            let weekdayIndex = calendar.component(.weekday, from: date)
+            dateFormatter.dateFormat = "E"
+            return dateFormatter.shortWeekdaySymbols[weekdayIndex - 1]
         }
     }
     
@@ -116,6 +132,9 @@ class MainWeatherViewController: BaseViewController {
         }
         viewModel.outputThreeHoursWeather.bind { _ in
             self.threeHoursCollectionView.reloadData()
+        }
+        viewModel.outputFiveDaysWeather.bind { _ in
+            self.fiveDaysTableView.reloadData()
         }
     }
 }
@@ -145,13 +164,25 @@ extension MainWeatherViewController: UICollectionViewDataSource, UICollectionVie
 
 extension MainWeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        return viewModel.outputFiveDaysWeather.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FiveDaysTableViewCell.id, for: indexPath) as! FiveDaysTableViewCell
         
-        cell.backgroundColor = .brown
+        let forecast = viewModel.outputFiveDaysWeather.value[indexPath.row]
+        let mintemp = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.tempMin ?? 0.0))
+        let maxtemp = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.tempMax ?? 0.0))
+        
+        cell.dateLabel.text = formatDate(forecast.dt, index: indexPath.row)
+        cell.minTempLabel.text = "최저: \(mintemp)"
+        cell.maxTempLabel.text = "최고: \(maxtemp)"
+        
+        let icon = forecast.weather.first?.icon ?? ""
+        let iconURL = getIconURL(iconCode: icon)
+        cell.weatherIcon.kf.setImage(with: URL(string: iconURL))
+        
+        cell.backgroundColor = .clear
         return cell
     }
 }
