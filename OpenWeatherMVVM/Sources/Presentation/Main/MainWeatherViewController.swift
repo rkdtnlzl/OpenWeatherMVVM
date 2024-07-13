@@ -169,21 +169,27 @@ extension MainWeatherViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FiveDaysTableViewCell.id, for: indexPath) as! FiveDaysTableViewCell
-        
         let forecast = viewModel.outputFiveDaysWeather.value[indexPath.row]
-        let mintemp = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.tempMin ?? 0.0))
-        let maxtemp = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.tempMax ?? 0.0))
-        
-        cell.dateLabel.text = formatDate(forecast.dt, index: indexPath.row)
-        cell.minTempLabel.text = "최저: \(mintemp)"
-        cell.maxTempLabel.text = "최고: \(maxtemp)"
-        
-        let icon = forecast.weather.first?.icon ?? ""
-        let iconURL = getIconURL(iconCode: icon)
+        cell.dateLabel.text = formatDate(forecast.date, index: indexPath.row)
+        cell.minTempLabel.text = "최저: \(String(format: "%.1f°C", forecast.minTemp))"
+        cell.maxTempLabel.text = "최고: \(String(format: "%.1f°C", forecast.maxTemp))"
+        let iconURL = getIconURL(iconCode: forecast.weatherIcon)
         cell.weatherIcon.kf.setImage(with: URL(string: iconURL))
-        
         cell.backgroundColor = .clear
         return cell
+    }
+    
+    func formatDate(_ date: Date, index: Int) -> String {
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        if index == 0 {
+            return "오늘"
+        } else {
+            let weekdayIndex = calendar.component(.weekday, from: date)
+            dateFormatter.dateFormat = "E"
+            return dateFormatter.shortWeekdaySymbols[weekdayIndex - 1]
+        }
     }
 }
 

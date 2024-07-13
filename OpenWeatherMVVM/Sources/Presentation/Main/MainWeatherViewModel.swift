@@ -13,7 +13,7 @@ class MainWeatherViewModel {
     
     var outputWeatherUpdate: Observable<(cityName: String, currentTemp: String, descriptionName: String, minMaxTemp: String)> = Observable(("", "", "", ""))
     var outputThreeHoursWeather: Observable<[Forecast]> = Observable([])
-    var outputFiveDaysWeather: Observable<[Forecast]> = Observable([])
+    var outputFiveDaysWeather: Observable<[(date: Date, minTemp: Double, maxTemp: Double, weatherIcon: String)]> = Observable([])
     
     init() {
         inputLocationTrigger.bind { location in
@@ -54,7 +54,7 @@ class MainWeatherViewModel {
             case .success(let forecastData):
                 let forecasts = forecastData.list
                 self.outputThreeHoursWeather.value = Array(forecasts.prefix(8))
-                self.fiveDaysForecasts(forecasts: forecasts)
+                self.ficeDaysForecasts(forecasts: forecasts)
             case .failure:
                 self.outputThreeHoursWeather.value = []
                 self.outputFiveDaysWeather.value = []
@@ -62,22 +62,23 @@ class MainWeatherViewModel {
         }
     }
     
-    private func fiveDaysForecasts(forecasts: [Forecast]) {
-        var dailyForecasts: [Forecast] = []
+    private func ficeDaysForecasts(forecasts: [Forecast]) {
+        let calendar = Calendar.current
+
         let groupedForecasts = Dictionary(grouping: forecasts) { forecast in
             let date = Date(timeIntervalSince1970: TimeInterval(forecast.dt))
-            let calendar = Calendar.current
             return calendar.startOfDay(for: date)
         }
+        var dailyForecasts: [(date: Date, minTemp: Double, maxTemp: Double, weatherIcon: String)] = []
         
-        for (_, dailyData) in groupedForecasts {
-            if let dailyForecast = dailyData.first {
-                dailyForecasts.append(dailyForecast)
-            }
+        for (date, dailyData) in groupedForecasts {
+            let minTemp = dailyData.map { self.convertCelsius(kelvin: $0.main.tempMin ?? 0.0) }.min() ?? 0.0
+            let maxTemp = dailyData.map { self.convertCelsius(kelvin: $0.main.tempMax ?? 0.0) }.max() ?? 0.0
+            let weatherIcon = dailyData.first?.weather.first?.icon ?? ""
+            dailyForecasts.append((date: date, minTemp: minTemp, maxTemp: maxTemp, weatherIcon: weatherIcon))
         }
-        
-        dailyForecasts.sort { $0.dt < $1.dt }
-        self.outputFiveDaysWeather.value = dailyForecasts
+        dailyForecasts.sort { $0.date < $1.date }
+        self.outputFiveDaysWeather.value = Array(dailyForecasts.prefix(5))
     }
     
     func convertCelsius(kelvin: Double) -> Double {
