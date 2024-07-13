@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import Kingfisher
+import MapKit
 
 class MainWeatherViewController: BaseViewController {
     
@@ -19,7 +20,6 @@ class MainWeatherViewController: BaseViewController {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
         layout.itemSize = CGSize(width: 80, height: 140)
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -30,8 +30,9 @@ class MainWeatherViewController: BaseViewController {
         collectionView.register(ThreeHoursCollectionViewCell.self, forCellWithReuseIdentifier: ThreeHoursCollectionViewCell.id)
         return collectionView
     }()
-    
     let fiveDaysTableView = UITableView()
+    let mapView = MKMapView()
+    
     let viewModel = MainWeatherViewModel()
     let locationManager = CLLocationManager()
     
@@ -65,10 +66,12 @@ class MainWeatherViewController: BaseViewController {
         scrollView.addSubview(mainWeatherView)
         scrollView.addSubview(threeHoursCollectionView)
         scrollView.addSubview(fiveDaysTableView)
+        scrollView.addSubview(mapView)
     }
     
     override func configureView() {
         scrollView.backgroundColor = .black
+        mapView.layer.cornerRadius = 10
     }
     
     override func configureConstraints() {
@@ -89,6 +92,11 @@ class MainWeatherViewController: BaseViewController {
             make.top.equalTo(threeHoursCollectionView.snp.bottom).offset(40)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(350)
+        }
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(fiveDaysTableView.snp.bottom).offset(40)
+            make.width.equalTo(scrollView.snp.width)
+            make.height.equalTo(250)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
     }
