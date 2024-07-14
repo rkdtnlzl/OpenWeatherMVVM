@@ -12,6 +12,7 @@ import MapKit
 
 class MainWeatherViewController: BaseViewController {
     
+    let containerView = UIView()
     let scrollView = UIScrollView()
     let mainWeatherView = MainWeatherView()
     
@@ -48,7 +49,8 @@ class MainWeatherViewController: BaseViewController {
     
     let fiveDaysTableView = UITableView()
     let mapView = MKMapView()
-    
+    let toolbar = UIToolbar()
+
     let viewModel = MainWeatherViewModel()
     let locationManager = CLLocationManager()
     
@@ -56,6 +58,7 @@ class MainWeatherViewController: BaseViewController {
         super.viewDidLoad()
         configureLocationManager()
         configureTableView()
+        configureToolbar()
         bindData()
     }
     
@@ -77,8 +80,19 @@ class MainWeatherViewController: BaseViewController {
         locationManager.requestWhenInUseAuthorization()
     }
     
+    func configureToolbar() {
+        toolbar.barStyle = .default
+        let leftItem = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: #selector(leftButtonTapped))
+        let rightItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(rightButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [leftItem, flexibleSpace, rightItem]
+    }
+    
     override func configureHierarchy() {
-        view.addSubview(scrollView)
+        view.addSubview(containerView)
+        containerView.addSubview(scrollView)
+        containerView.addSubview(toolbar)
+        
         scrollView.addSubview(mainWeatherView)
         scrollView.addSubview(threeHoursCollectionView)
         scrollView.addSubview(fiveDaysTableView)
@@ -90,11 +104,21 @@ class MainWeatherViewController: BaseViewController {
         scrollView.backgroundColor = .black
         mapView.layer.cornerRadius = 10
         mapView.isScrollEnabled = false
+        toolbar.barTintColor = .clear
+        toolbar.tintColor = .white
     }
     
     override func configureConstraints() {
-        scrollView.snp.makeConstraints { make in
+        containerView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        scrollView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(containerView)
+            make.bottom.equalTo(toolbar.snp.top)
+        }
+        toolbar.snp.makeConstraints { make in
+            make.left.right.bottom.equalTo(containerView)
+            make.height.equalTo(50)
         }
         mainWeatherView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.snp.top)
@@ -122,6 +146,15 @@ class MainWeatherViewController: BaseViewController {
             make.height.equalTo(400)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
+    }
+    
+    @objc func leftButtonTapped() {
+        let vc = MapSearchViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func rightButtonTapped() {
+        
     }
     
     func formatDate(_ timestamp: Int, index: Int) -> String {
@@ -205,8 +238,7 @@ extension MainWeatherViewController: UICollectionViewDataSource, UICollectionVie
             cell.layer.borderWidth = 0.5
             cell.titleLabel.text = detail.title
             cell.descriptionLabel.text = detail.value
-            let systemImageNames = ["wind", "drop.fill", "thermometer.transmission", "humidity"]
-            let imageName = systemImageNames[indexPath.item % systemImageNames.count]
+            let imageName = ["wind", "drop.fill", "thermometer.transmission", "humidity"][indexPath.item % 4]
             cell.iconImageView.image = UIImage(systemName: imageName)
             return cell
         }
@@ -262,3 +294,4 @@ extension MainWeatherViewController: CLLocationManagerDelegate {
         print("Location update failed with error: \(error)")
     }
 }
+
