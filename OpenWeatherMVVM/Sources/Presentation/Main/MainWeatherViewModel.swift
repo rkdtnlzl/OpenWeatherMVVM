@@ -14,6 +14,7 @@ class MainWeatherViewModel {
     var outputWeatherUpdate: Observable<(cityName: String, currentTemp: String, descriptionName: String, minMaxTemp: String)> = Observable(("", "", "", ""))
     var outputThreeHoursWeather: Observable<[Forecast]> = Observable([])
     var outputFiveDaysWeather: Observable<[(date: Date, minTemp: Double, maxTemp: Double, weatherIcon: String)]> = Observable([])
+    var outputDetailWeather: Observable<[(title: String, value: String)]> = Observable([])
     
     init() {
         inputLocationTrigger.bind { location in
@@ -40,6 +41,15 @@ class MainWeatherViewModel {
                     descriptionName: weatherData.weather.first?.description ?? "",
                     minMaxTemp: "최고 : \(formattedMaxTemp) | 최저 : \(formattedMinTemp)"
                 )
+                
+                let detailWeather = [
+                    (title: "바람 속도", value: "\(weatherData.wind.speed ?? 0.0) m/s"),
+                    (title: "구름", value: "\(weatherData.clouds.all ?? 0)%"),
+                    (title: "기압", value: "\(weatherData.main.pressure ?? 0)"),
+                    (title: "습도", value: "\(weatherData.main.humidity ?? 0)%")
+                ]
+                self.outputDetailWeather.value = detailWeather
+                
                 self.fetchForecast(cityId: weatherData.id)
                 
             case .failure:
@@ -64,7 +74,7 @@ class MainWeatherViewModel {
     
     private func fiveDaysForecasts(forecasts: [Forecast]) {
         let calendar = Calendar.current
-
+        
         let groupedForecasts = Dictionary(grouping: forecasts) { forecast in
             let date = Date(timeIntervalSince1970: TimeInterval(forecast.dt))
             return calendar.startOfDay(for: date)
