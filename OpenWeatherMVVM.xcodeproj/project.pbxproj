@@ -30,6 +30,8 @@
 		01FF37672C4264A3004F5F3A /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37662C4264A3004F5F3A /* Forecast.swift */; };
 		01FF376A2C427257004F5F3A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 01FF37692C427257004F5F3A /* Kingfisher */; };
 		01FF376C2C4278A5004F5F3A /* FiveDaysTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */; };
+		01FF376F2C43B2B7004F5F3A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF376E2C43B2B7004F5F3A /* MapViewController.swift */; };
+		01FF37712C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeHoursCollectionViewCell.swift; sourceTree = "<group>"; };
 		01FF37662C4264A3004F5F3A /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysTableViewCell.swift; sourceTree = "<group>"; };
+		01FF376E2C43B2B7004F5F3A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 			children = (
 				01FF37352C3E937B004F5F3A /* Base */,
 				01FF37342C3E9211004F5F3A /* Main */,
+				01FF376D2C43B29B004F5F3A /* Map */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -143,9 +148,10 @@
 			children = (
 				01FF37202C3E8FFE004F5F3A /* MainWeatherViewController.swift */,
 				01FF373E2C3E979B004F5F3A /* MainWeatherView.swift */,
+				01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */,
 				01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */,
 				01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */,
-				01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */,
+				01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -185,6 +191,14 @@
 				01FF37662C4264A3004F5F3A /* Forecast.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		01FF376D2C43B29B004F5F3A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				01FF376E2C43B2B7004F5F3A /* MapViewController.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +287,7 @@
 				01FF373F2C3E979B004F5F3A /* MainWeatherView.swift in Sources */,
 				01FF37652C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift in Sources */,
 				01FF37632C402819004F5F3A /* LocationManager.swift in Sources */,
+				01FF37712C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift in Sources */,
 				01FF37542C3ECD7C004F5F3A /* CurrentWeather.swift in Sources */,
 				01FF376C2C4278A5004F5F3A /* FiveDaysTableViewCell.swift in Sources */,
 				01FF37212C3E8FFE004F5F3A /* MainWeatherViewController.swift in Sources */,
@@ -281,6 +296,7 @@
 				01FF37372C3E93A5004F5F3A /* BaseViewController.swift in Sources */,
 				01FF374B2C3EA004004F5F3A /* APIKey.swift in Sources */,
 				01FF37392C3E93DF004F5F3A /* BaseView.swift in Sources */,
+				01FF376F2C43B2B7004F5F3A /* MapViewController.swift in Sources */,
 				01FF37472C3E9E2C004F5F3A /* MainWeatherViewModel.swift in Sources */,
 				01FF371D2C3E8FFE004F5F3A /* AppDelegate.swift in Sources */,
 				01FF373B2C3E941B004F5F3A /* BaseTableViewCell.swift in Sources */,
