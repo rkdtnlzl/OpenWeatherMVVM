@@ -155,12 +155,10 @@
 		01FF37342C3E9211004F5F3A /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				01FF37202C3E8FFE004F5F3A /* MainWeatherViewController.swift */,
-				01FF373E2C3E979B004F5F3A /* MainWeatherView.swift */,
-				01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */,
-				01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */,
-				01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */,
-				01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */,
+				01FF377D2C442676004F5F3A /* Cell */,
+				01FF377C2C44266B004F5F3A /* ViewModel */,
+				01FF377B2C442664004F5F3A /* View */,
+				01FF377A2C442655004F5F3A /* Controller */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -207,10 +205,60 @@
 		01FF376D2C43B29B004F5F3A /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				01FF376E2C43B2B7004F5F3A /* CitySearchViewController.swift */,
-				01FF37782C441D17004F5F3A /* CitySearchViewModel.swift */,
+				01FF377F2C442688004F5F3A /* ViewModel */,
+				01FF377E2C442682004F5F3A /* Controller */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		01FF377A2C442655004F5F3A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				01FF37202C3E8FFE004F5F3A /* MainWeatherViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		01FF377B2C442664004F5F3A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				01FF373E2C3E979B004F5F3A /* MainWeatherView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		01FF377C2C44266B004F5F3A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				01FF37462C3E9E2C004F5F3A /* MainWeatherViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		01FF377D2C442676004F5F3A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */,
+				01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */,
+				01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		01FF377E2C442682004F5F3A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				01FF376E2C43B2B7004F5F3A /* CitySearchViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		01FF377F2C442688004F5F3A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				01FF37782C441D17004F5F3A /* CitySearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
