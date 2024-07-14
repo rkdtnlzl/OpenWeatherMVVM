@@ -30,7 +30,7 @@
 		01FF37672C4264A3004F5F3A /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37662C4264A3004F5F3A /* Forecast.swift */; };
 		01FF376A2C427257004F5F3A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 01FF37692C427257004F5F3A /* Kingfisher */; };
 		01FF376C2C4278A5004F5F3A /* FiveDaysTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */; };
-		01FF376F2C43B2B7004F5F3A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF376E2C43B2B7004F5F3A /* MapViewController.swift */; };
+		01FF376F2C43B2B7004F5F3A /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF376E2C43B2B7004F5F3A /* MapSearchViewController.swift */; };
 		01FF37712C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +57,7 @@
 		01FF37642C4259DB004F5F3A /* ThreeHoursCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeHoursCollectionViewCell.swift; sourceTree = "<group>"; };
 		01FF37662C4264A3004F5F3A /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		01FF376B2C4278A5004F5F3A /* FiveDaysTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysTableViewCell.swift; sourceTree = "<group>"; };
-		01FF376E2C43B2B7004F5F3A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		01FF376E2C43B2B7004F5F3A /* MapSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewController.swift; sourceTree = "<group>"; };
 		01FF37702C43B3E4004F5F3A /* DetailWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,7 +196,7 @@
 		01FF376D2C43B29B004F5F3A /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				01FF376E2C43B2B7004F5F3A /* MapViewController.swift */,
+				01FF376E2C43B2B7004F5F3A /* MapSearchViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 				01FF37372C3E93A5004F5F3A /* BaseViewController.swift in Sources */,
 				01FF374B2C3EA004004F5F3A /* APIKey.swift in Sources */,
 				01FF37392C3E93DF004F5F3A /* BaseView.swift in Sources */,
-				01FF376F2C43B2B7004F5F3A /* MapViewController.swift in Sources */,
+				01FF376F2C43B2B7004F5F3A /* MapSearchViewController.swift in Sources */,
 				01FF37472C3E9E2C004F5F3A /* MainWeatherViewModel.swift in Sources */,
 				01FF371D2C3E8FFE004F5F3A /* AppDelegate.swift in Sources */,
 				01FF373B2C3E941B004F5F3A /* BaseTableViewCell.swift in Sources */,
