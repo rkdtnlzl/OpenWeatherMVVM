@@ -82,6 +82,8 @@ class MainWeatherViewController: BaseViewController {
     
     func configureToolbar() {
         toolbar.barStyle = .default
+        toolbar.barTintColor = .clear
+        toolbar.tintColor = .white
         let leftItem = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: #selector(leftButtonTapped))
         let rightItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(rightButtonTapped))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -104,8 +106,6 @@ class MainWeatherViewController: BaseViewController {
         scrollView.backgroundColor = .black
         mapView.layer.cornerRadius = 10
         mapView.isScrollEnabled = false
-        toolbar.barTintColor = .clear
-        toolbar.tintColor = .white
     }
     
     override func configureConstraints() {
@@ -149,7 +149,7 @@ class MainWeatherViewController: BaseViewController {
     }
     
     @objc func leftButtonTapped() {
-        let vc = MapSearchViewController()
+        let vc = CitySearchViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
