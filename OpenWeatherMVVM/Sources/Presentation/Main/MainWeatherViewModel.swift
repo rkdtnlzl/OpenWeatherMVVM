@@ -54,7 +54,7 @@ class MainWeatherViewModel {
             case .success(let forecastData):
                 let forecasts = forecastData.list
                 self.outputThreeHoursWeather.value = Array(forecasts.prefix(8))
-                self.ficeDaysForecasts(forecasts: forecasts)
+                self.fiveDaysForecasts(forecasts: forecasts)
             case .failure:
                 self.outputThreeHoursWeather.value = []
                 self.outputFiveDaysWeather.value = []
@@ -62,7 +62,7 @@ class MainWeatherViewModel {
         }
     }
     
-    private func ficeDaysForecasts(forecasts: [Forecast]) {
+    private func fiveDaysForecasts(forecasts: [Forecast]) {
         let calendar = Calendar.current
 
         let groupedForecasts = Dictionary(grouping: forecasts) { forecast in
