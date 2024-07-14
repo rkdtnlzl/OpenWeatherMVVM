@@ -30,6 +30,22 @@ class MainWeatherViewController: BaseViewController {
         collectionView.register(ThreeHoursCollectionViewCell.self, forCellWithReuseIdentifier: ThreeHoursCollectionViewCell.id)
         return collectionView
     }()
+    
+    lazy var detailWeatherCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
+        let itemSize = (UIScreen.main.bounds.width - 24) / 2
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+        collectionView.register(DetailWeatherCollectionViewCell.self, forCellWithReuseIdentifier: DetailWeatherCollectionViewCell.id)
+        return collectionView
+    }()
+    
     let fiveDaysTableView = UITableView()
     let mapView = MKMapView()
     
@@ -67,11 +83,13 @@ class MainWeatherViewController: BaseViewController {
         scrollView.addSubview(threeHoursCollectionView)
         scrollView.addSubview(fiveDaysTableView)
         scrollView.addSubview(mapView)
+        scrollView.addSubview(detailWeatherCollectionView)
     }
     
     override func configureView() {
         scrollView.backgroundColor = .black
         mapView.layer.cornerRadius = 10
+        mapView.isScrollEnabled = false
     }
     
     override func configureConstraints() {
@@ -97,6 +115,11 @@ class MainWeatherViewController: BaseViewController {
             make.top.equalTo(fiveDaysTableView.snp.bottom).offset(40)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(250)
+        }
+        detailWeatherCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(mapView.snp.bottom).offset(40)
+            make.width.equalTo(scrollView.snp.width)
+            make.height.equalTo(400)
             make.bottom.equalTo(scrollView.snp.bottom)
         }
     }
@@ -144,28 +167,49 @@ class MainWeatherViewController: BaseViewController {
         viewModel.outputFiveDaysWeather.bind { _ in
             self.fiveDaysTableView.reloadData()
         }
+        viewModel.outputDetailWeather.bind { _ in
+            self.detailWeatherCollectionView.reloadData()
+        }
     }
 }
 
 extension MainWeatherViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.outputThreeHoursWeather.value.count
+        if collectionView == threeHoursCollectionView {
+            return viewModel.outputThreeHoursWeather.value.count
+        } else {
+            return viewModel.outputDetailWeather.value.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHoursCollectionViewCell.id, for: indexPath) as! ThreeHoursCollectionViewCell
-        let forecast = viewModel.outputThreeHoursWeather.value[indexPath.item]
-        let time = formatTime(TimeInterval(forecast.dt))
-        let temperature = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.temp ?? 0.0))
-        let icon = forecast.weather.first?.icon ?? ""
-        let iconURL = getIconURL(iconCode: icon)
-        
-        cell.timeLabel.text = time
-        cell.temperatureLabel.text = temperature
-        cell.iconImageView.kf.setImage(with: URL(string: iconURL))
-        
-        return cell
+        if collectionView == threeHoursCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHoursCollectionViewCell.id, for: indexPath) as! ThreeHoursCollectionViewCell
+            let forecast = viewModel.outputThreeHoursWeather.value[indexPath.item]
+            let time = formatTime(TimeInterval(forecast.dt))
+            let temperature = String(format: "%.1f°C", viewModel.convertCelsius(kelvin: forecast.main.temp ?? 0.0))
+            let icon = forecast.weather.first?.icon ?? ""
+            let iconURL = getIconURL(iconCode: icon)
+            
+            cell.timeLabel.text = time
+            cell.temperatureLabel.text = temperature
+            cell.iconImageView.kf.setImage(with: URL(string: iconURL))
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCollectionViewCell.id, for: indexPath) as! DetailWeatherCollectionViewCell
+            let detail = viewModel.outputDetailWeather.value[indexPath.item]
+            cell.layer.cornerRadius = 10
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.borderWidth = 0.5
+            cell.titleLabel.text = detail.title
+            cell.descriptionLabel.text = detail.value
+            let systemImageNames = ["wind", "drop.fill", "thermometer.transmission", "humidity"]
+            let imageName = systemImageNames[indexPath.item % systemImageNames.count]
+            cell.iconImageView.image = UIImage(systemName: imageName)
+            return cell
+        }
     }
     
 }
