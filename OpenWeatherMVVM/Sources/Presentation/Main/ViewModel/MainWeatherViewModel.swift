@@ -17,25 +17,25 @@ class MainWeatherViewModel {
     var outputDetailWeather: Observable<[(title: String, value: String)]> = Observable([])
     
     init() {
-        inputLocationTrigger.bind { location in
-            self.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+        inputLocationTrigger.bind { [weak self] location in
+            self?.fetchWeather(latitude: location.latitude, longitude: location.longitude)
         }
     }
     
     private func fetchWeather(latitude: Double, longitude: Double) {
-        WeatherAPI.shared.fetchWeatherData(latitude: latitude, longitude: longitude) { result in
+        WeatherAPI.shared.fetchWeatherData(latitude: latitude, longitude: longitude) { [weak self] result in
             switch result {
             case .success(let weatherData):
-                let celsiusTemp = self.convertCelsius(kelvin: weatherData.main.temp ?? 0.0)
-                let formattedTemp = String(format: "%.1f°C", celsiusTemp)
+                let celsiusTemp = self?.convertCelsius(kelvin: weatherData.main.temp ?? 0.0)
+                let formattedTemp = String(format: "%.1f°C", celsiusTemp ?? "")
                 
-                let celsiusMinTemp = self.convertCelsius(kelvin: weatherData.main.tempMin ?? 0.0)
-                let formattedMinTemp = String(format: "%.1f°C", celsiusMinTemp)
+                let celsiusMinTemp = self?.convertCelsius(kelvin: weatherData.main.tempMin ?? 0.0)
+                let formattedMinTemp = String(format: "%.1f°C", celsiusMinTemp ?? "")
                 
-                let celsiusMaxTemp = self.convertCelsius(kelvin: weatherData.main.tempMax ?? 0.0)
-                let formattedMaxTemp = String(format: "%.1f°C", celsiusMaxTemp)
+                let celsiusMaxTemp = self?.convertCelsius(kelvin: weatherData.main.tempMax ?? 0.0)
+                let formattedMaxTemp = String(format: "%.1f°C", celsiusMaxTemp ?? "")
                 
-                self.outputWeatherUpdate.value = (
+                self?.outputWeatherUpdate.value = (
                     cityName: weatherData.name,
                     currentTemp: formattedTemp,
                     descriptionName: weatherData.weather.first?.description ?? "",
@@ -48,26 +48,26 @@ class MainWeatherViewModel {
                     (title: "기압", value: "\(weatherData.main.pressure ?? 0)"),
                     (title: "습도", value: "\(weatherData.main.humidity ?? 0)%")
                 ]
-                self.outputDetailWeather.value = detailWeather
+                self?.outputDetailWeather.value = detailWeather
                 
-                self.fetchForecast(cityId: weatherData.id)
+                self?.fetchForecast(cityId: weatherData.id)
                 
             case .failure:
-                self.outputWeatherUpdate.value = ("Error", "N/A", "N/A", "N/A | N/A")
+                self?.outputWeatherUpdate.value = ("Error", "N/A", "N/A", "N/A | N/A")
             }
         }
     }
     
     private func fetchForecast(cityId: Int) {
-        WeatherAPI.shared.fetchWeatherForecast(cityId: cityId) { result in
+        WeatherAPI.shared.fetchWeatherForecast(cityId: cityId) { [weak self] result in
             switch result {
             case .success(let forecastData):
                 let forecasts = forecastData.list
-                self.outputThreeHoursWeather.value = Array(forecasts.prefix(8))
-                self.fiveDaysForecasts(forecasts: forecasts)
+                self?.outputThreeHoursWeather.value = Array(forecasts.prefix(8))
+                self?.fiveDaysForecasts(forecasts: forecasts)
             case .failure:
-                self.outputThreeHoursWeather.value = []
-                self.outputFiveDaysWeather.value = []
+                self?.outputThreeHoursWeather.value = []
+                self?.outputFiveDaysWeather.value = []
             }
         }
     }
