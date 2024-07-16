@@ -113,11 +113,11 @@ class MainWeatherViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         scrollView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(containerView)
+            make.top.horizontalEdges.equalTo(containerView)
             make.bottom.equalTo(toolbar.snp.top)
         }
         toolbar.snp.makeConstraints { make in
-            make.left.right.bottom.equalTo(containerView)
+            make.horizontalEdges.bottom.equalTo(containerView)
             make.height.equalTo(50)
         }
         mainWeatherView.snp.makeConstraints { make in
