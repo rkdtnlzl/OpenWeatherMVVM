@@ -68,8 +68,8 @@ class CitySearchViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputFilteredCities.bind { _ in
-            self.tableView.reloadData()
+        viewModel.outputFilteredCities.bind { [weak self] _ in
+            self?.tableView.reloadData()
         }
     }
 }
