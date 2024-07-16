@@ -188,20 +188,20 @@ class MainWeatherViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputWeatherUpdate.bind { weatherUpdate in
-            self.mainWeatherView.cityName.text = weatherUpdate.cityName
-            self.mainWeatherView.currentTemp.text = weatherUpdate.currentTemp
-            self.mainWeatherView.descriptionName.text = weatherUpdate.descriptionName
-            self.mainWeatherView.minMaxTemp.text = weatherUpdate.minMaxTemp
+        viewModel.outputWeatherUpdate.bind { [weak self] weatherUpdate in
+            self?.mainWeatherView.cityName.text = weatherUpdate.cityName
+            self?.mainWeatherView.currentTemp.text = weatherUpdate.currentTemp
+            self?.mainWeatherView.descriptionName.text = weatherUpdate.descriptionName
+            self?.mainWeatherView.minMaxTemp.text = weatherUpdate.minMaxTemp
         }
-        viewModel.outputThreeHoursWeather.bind { _ in
-            self.threeHoursCollectionView.reloadData()
+        viewModel.outputThreeHoursWeather.bind { [weak self] _ in
+            self?.threeHoursCollectionView.reloadData()
         }
-        viewModel.outputFiveDaysWeather.bind { _ in
-            self.fiveDaysTableView.reloadData()
+        viewModel.outputFiveDaysWeather.bind { [weak self] _ in
+            self?.fiveDaysTableView.reloadData()
         }
-        viewModel.outputDetailWeather.bind { _ in
-            self.detailWeatherCollectionView.reloadData()
+        viewModel.outputDetailWeather.bind { [weak self] _ in
+            self?.detailWeatherCollectionView.reloadData()
         }
     }
 }
