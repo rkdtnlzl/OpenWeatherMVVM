@@ -16,8 +16,8 @@ class CitySearchViewModel {
     
     init() {
         loadCities()
-        inputSearchText.bind { searchText in
-            self.filterCities(with: searchText)
+        inputSearchText.bind { [weak self] searchText in
+            self?.filterCities(with: searchText)
         }
     }
     
